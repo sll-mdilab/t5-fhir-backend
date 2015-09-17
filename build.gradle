@@ -1,0 +1,47 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+version = '0.1'
+
+war {
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+    	url 'http://developer.marklogic.com/maven2'
+    }
+    flatDir {
+    	dirs '../t5-repo'
+    }
+}
+
+dependencies {
+    compile 'commons-collections:commons-collections:3.2'
+    compile 'org.springframework:spring-core:4.1.4.RELEASE'
+    compile 'org.springframework:spring-context:4.1.4.RELEASE'
+    compile 'org.springframework:spring-web:4.1.4.RELEASE'
+    compile 'com.marklogic:client-api-java:2.0-1'
+    compile 'com.marklogic:marklogic-xcc:7.0.4'
+    compile 'ca.uhn.hapi.fhir:hapi-fhir-base:0.9'
+    //compile 'ca.uhn.hapi.fhir:hapi-fhir-structures-dstu:0.9'
+    compile 'ca.uhn.hapi.fhir:hapi-fhir-structures-dstu2:0.9'
+    compile 'com.thetransactioncompany:cors-filter:2.3'
+    compile name: 't5-commons-1.0'
+    
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    
+    testCompile 'junit:junit:4.+'
+    testCompile 'org.mockito:mockito-core:1.+'
+}
+
+test {
+    systemProperties 'property': 'value'
+}
